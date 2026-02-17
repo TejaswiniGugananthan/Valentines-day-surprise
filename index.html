@@ -10,11 +10,21 @@ body {
     text-align: center;
     font-family: 'Segoe UI', sans-serif;
     overflow-x: hidden;
+    
+}
+/* Background Layer */
+#bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     background: linear-gradient(to right, #ff9a9e, #ff4d88);
     background-size: cover;
-    transition: background 1s ease-in-out;
+    background-position: center;
+    z-index: -2;
+    transition: opacity 0.8s ease-in-out;
 }
-
 /* ================= TEXT COLORS ================= */
 
 /* Front, Result & Valentine same color */
@@ -47,7 +57,7 @@ body {
     width: 100%;
     top: 100px;
     opacity: 0;
-    transition: opacity 2.4s ease-in-out;
+    transition: opacity 1.2s ease-in-out;
     pointer-events: none;
 }
 
@@ -72,6 +82,7 @@ button {
     font-size: 16px;
     cursor: pointer;
 }
+
 
 .yesBtn {
     background-color: #ff0066;
@@ -119,7 +130,7 @@ video {
 </head>
 
 <body>
-
+<div id="bg"></div>
 <!-- FRONT PAGE -->
 <div id="frontPage" class="page active">
 <h1>Here is the Surprise for you MY LOVE 😌❤️</h1>
@@ -259,17 +270,28 @@ showPage("valentinePage");
 changeBackground("valentine.jpg");
 }
 
+
 function changeBackground(img){
-document.body.style.background=
-"url('"+img+"') no-repeat center center fixed";
-document.body.style.backgroundSize="cover";
+
+    const bg = document.getElementById("bg");
+
+    // Preload image
+    const newImage = new Image();
+    newImage.src = img;
+
+    newImage.onload = function(){
+
+        bg.style.opacity = 0;
+
+        setTimeout(()=>{
+            bg.style.background = "url('" + img + "') center/cover no-repeat";
+            bg.style.opacity = 1;
+        },400);
+
+    }
 }
 
-const noBtn=document.getElementById("noBtn");
-noBtn.addEventListener("mouseover",function(){
-noBtn.style.left=Math.random()*300+"px";
-noBtn.style.top=Math.random()*100+"px";
-});
+
 
 function sayYes(){
 
@@ -309,4 +331,3 @@ setInterval(createHeart,300);
 </script>
 </body>
 </html>
-
