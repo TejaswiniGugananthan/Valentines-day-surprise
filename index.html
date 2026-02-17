@@ -206,24 +206,52 @@ changeBackground("q1.jpg");
 
 /* Check Answer */
 function checkAnswer(page){
-let userAnswer=document.getElementById("q"+page).value.toLowerCase().trim();
 
-if(userAnswer===correctAnswers[page]){
-if(page<5){
-showPage("quiz"+(page+1));
-changeBackground("q"+(page+1)+".jpg");
+let userAnswer = document.getElementById("q"+page).value
+.toLowerCase()
+.trim();
+
+let correct = correctAnswers[page];
+let isCorrect = false;
+
+// Check answer
+if(Array.isArray(correct)){
+    if(correct.includes(userAnswer)){
+        isCorrect = true;
+    }
+}else{
+    if(userAnswer === correct){
+        isCorrect = true;
+    }
 }
 
-else{
-showPage("resultPage");
-document.body.style.background="linear-gradient(to right, #ff9a9e, #ff4d88)";
+if(isCorrect){
+
+    // Show cute message
+    document.getElementById("result"+page).innerHTML =
+    "<h3 style='color:#00ffcc;'>Good boyyy 😍❤️ You know us so well!</h3>";
+
+    // Move to next page after 1.2 sec
+    setTimeout(()=>{
+
+        if(page < 5){
+            showPage("quiz"+(page+1));
+            changeBackground("q"+(page+1)+".jpg");
+        } else {
+            showPage("resultPage");
+            document.body.style.background =
+            "linear-gradient(to right, #ff9a9e, #ff4d88)";
+        }
+
+    },1200);
+
+}else{
+
+    document.getElementById("result"+page).innerHTML =
+    "<h3>You are very bad bby 😒❤️</h3>";
 }
 }
-else{
-document.getElementById("result"+page).innerHTML=
-"<h3>You are very bad bby 😒❤️</h3>";
-}
-}
+
 
 /* Go To Valentine */
 function goToValentine(){
