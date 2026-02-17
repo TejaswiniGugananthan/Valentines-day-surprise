@@ -10,7 +10,7 @@ body {
     text-align: center;
     font-family: 'Segoe UI', sans-serif;
     overflow-x: hidden;
-    color: white;
+    color: rgb(239, 40, 130);
     background: linear-gradient(to right, #ff9a9e, #ff4d88);
     background-size: cover;
     transition: background 1s ease-in-out;
@@ -130,7 +130,7 @@ video {
 
 <div id="quiz2" class="page">
 <h2>Question 2 💕</h2>
-<p>When did we kiss for the first time?💋💎</p>
+<p>When did we kiss for the first time?💋💎<p>
 <input type="text" id="q2"><br>
 <button onclick="checkAnswer(2)">Next</button>
 <div id="result2"></div>
@@ -181,7 +181,7 @@ video {
 
 /* Correct Answers - EDIT */
 const correctAnswers = {
-1: ["8 december 2017", "08 december 2017", "8/12/2017","08/12/2017"],
+1: "08/12/2017",
 2: ["3 march 2018", "03 march 2018", "3/3/2018","03/03/2018"],
 3: ["21 may 2018", "21/05/2018"],
 4: ["vision vidhyalaya school","match","sports meet"],
@@ -302,7 +302,7 @@ function sayYes(){
     // Show message + video after explosion
     setTimeout(()=>{
         document.getElementById("response").innerHTML=`
-        <h2>You said YES 😭❤️ So sweet of you my Babe❤️ I love you forever!</h2>
+        <h2>You said YES 😭❤️ I love you forever!</h2>
         <video controls autoplay>
         <source src="video.mp4" type="video/mp4">
         </video>
@@ -329,6 +329,3 @@ setInterval(createHeart,300);
 
 </body>
 </html>
-
-
-
