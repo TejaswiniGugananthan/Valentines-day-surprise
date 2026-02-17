@@ -60,11 +60,11 @@ button {
 
 .yesBtn {
     background-color: #ff0066;
-    color: white;
+    color: rgb(159, 0, 56);
 }
 
 .noBtn {
-    background-color: white;
+    background-color: rgb(232, 109, 109);
     color: #ff0066;
     position: absolute;
 }
@@ -181,7 +181,7 @@ video {
 
 /* Correct Answers - EDIT */
 const correctAnswers = {
-1: ["8 december 2017", "08 december 2017", "8/12/2017","08/12/2017"],
+1: "08/12/2017",
 2: ["3 march 2018", "03 march 2018", "3/3/2018","03/03/2018"],
 3: ["21 may 2018", "21/05/2018"],
 4: ["vision vidhyalaya school","match","sports meet"],
@@ -213,14 +213,13 @@ if(page<5){
 showPage("quiz"+(page+1));
 changeBackground("q"+(page+1)+".jpg");
 }
-if (allCorrect) {
-        document.getElementById("result").innerHTML =
-        "<h2>Good boyyy 😍❤️ You know us so well!</h2>";}
+
 else{
 showPage("resultPage");
 document.body.style.background="linear-gradient(to right, #ff9a9e, #ff4d88)";
 }
-}else{
+}
+else{
 document.getElementById("result"+page).innerHTML=
 "<h3>You are very bad bby 😒❤️</h3>";
 }
