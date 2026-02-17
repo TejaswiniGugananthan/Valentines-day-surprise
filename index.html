@@ -9,9 +9,9 @@ body {
     padding: 0;
     text-align: center;
     font-family: 'Segoe UI', sans-serif;
-    overflow-x: hidden;
-    
+    overflow: hidden;
 }
+
 /* Background Layer */
 #bg {
     position: fixed;
@@ -25,39 +25,35 @@ body {
     z-index: -2;
     transition: opacity 0.8s ease-in-out;
 }
-/* ================= TEXT COLORS ================= */
 
-/* Front, Result & Valentine same color */
+/* TEXT COLORS */
 #frontPage,
 #resultPage,
 #valentinePage {
-    color: #8b0000;  /* Deep romantic red */
+    color: #8b0000;
 }
 
-/* All Quiz Pages same color */
 #quiz1,
-#quiz4
-{
-    color:rgb(254, 249, 249);
+#quiz4 {
+    color: white;
 }
 
 #quiz2,
-#quiz3
-{
-    color:rgb(9, 9, 9)
+#quiz3 {
+    color: black;
 }
- /* Elegant dark purple */
+
 #quiz5 {
     color: #8b0000;
 }
-/* =============================================== */
 
+/* Pages */
 .page {
     position: absolute;
     width: 100%;
     top: 100px;
     opacity: 0;
-    transition: opacity 1.2s ease-in-out;
+    transition: opacity 0.8s ease-in-out;
     pointer-events: none;
 }
 
@@ -83,7 +79,6 @@ button {
     cursor: pointer;
 }
 
-
 .yesBtn {
     background-color: #ff0066;
     color: white;
@@ -108,12 +103,6 @@ button {
     to { transform: translateY(100vh); }
 }
 
-video {
-    width: 320px;
-    margin-top: 20px;
-    border-radius: 20px;
-}
-
 /* Explosion */
 .explosion-heart {
     position: fixed;
@@ -126,11 +115,19 @@ video {
     0% { transform: scale(1) translate(0, 0); opacity: 1; }
     100% { transform: scale(2.5) translate(var(--x), var(--y)); opacity: 0; }
 }
+
+video {
+    width: 320px;
+    margin-top: 20px;
+    border-radius: 20px;
+}
 </style>
 </head>
 
 <body>
+
 <div id="bg"></div>
+
 <!-- FRONT PAGE -->
 <div id="frontPage" class="page active">
 <h1>Here is the Surprise for you MY LOVE 😌❤️</h1>
@@ -198,104 +195,110 @@ video {
 
 <script>
 
-/* Answers */
-const correctAnswers = {
-1: ["8 december 2017","08 december 2017","8/12/2017","08/12/2017"],
-2: ["3 march 2018","03 march 2018","3/3/2018","03/03/2018"],
-3: ["21 may 2022","21/05/2022","21/5/2022"],
-4: ["vision vidhyalaya school","match","sports meet","school"],
-5: "ring"
+/* PRELOAD IMAGES */
+const images = [
+"q1.jpg",
+"q2.jpg",
+"q3.jpg",
+"q4.jpg",
+"q5.jpg",
+"valentine.jpg"
+];
+
+images.forEach(src=>{
+const img=new Image();
+img.src=src;
+});
+
+/* ANSWERS */
+const correctAnswers={
+1:["8 december 2017","08 december 2017","8/12/2017","08/12/2017"],
+2:["3 march 2018","03 march 2018","3/3/2018","03/03/2018"],
+3:["21 may 2022","21/05/2022","21/5/2022"],
+4:["vision vidhyalaya school","match","sports meet","school"],
+5:"ring"
 };
 
+/* PAGE SWITCH */
 function showPage(pageId){
 document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
-setTimeout(()=>document.getElementById(pageId).classList.add("active"),200);
+setTimeout(()=>document.getElementById(pageId).classList.add("active"),100);
 }
 
+/* START */
 function startQuiz(){
 showPage("quiz1");
 changeBackground("q1.jpg");
 }
 
+/* CHECK ANSWER */
 function checkAnswer(page){
+let userAnswer=document.getElementById("q"+page).value.toLowerCase().trim();
+let correct=correctAnswers[page];
+let isCorrect=false;
 
-let userAnswer = document.getElementById("q"+page).value
-.toLowerCase()
-.trim();
-
-let correct = correctAnswers[page];
-let isCorrect = false;
-
-// Check answer
 if(Array.isArray(correct)){
-    if(correct.includes(userAnswer)){
-        isCorrect = true;
-    }
+if(correct.includes(userAnswer)) isCorrect=true;
 }else{
-    if(userAnswer === correct){
-        isCorrect = true;
-    }
+if(userAnswer===correct) isCorrect=true;
 }
 
 if(isCorrect){
+document.getElementById("result"+page).innerHTML=
+"<h3 style='color:#00ffcc;'>Good boyyy 😍❤️ You know us very well!</h3>";
 
-    // Show cute message
-    document.getElementById("result"+page).innerHTML =
-    "<h3 style='color:#00ffcc;'>Good boyyy 😍❤️ You know us very well!</h3>";
-
-    // Move to next page after 1.2 sec
-    setTimeout(()=>{
-
-        if(page < 5){
-            showPage("quiz"+(page+1));
-            changeBackground("q"+(page+1)+".jpg");
-        } else {
-            showPage("resultPage");
-            document.body.style.background =
-            "linear-gradient(to right, #ff9a9e, #ff4d88)";
-        }
-
-    },1200);
+setTimeout(()=>{
+if(page<5){
+showPage("quiz"+(page+1));
+changeBackground("q"+(page+1)+".jpg");
+}else{
+showPage("resultPage");
+resetBackground();
+}
+},1200);
 
 }else{
-
-    document.getElementById("result"+page).innerHTML =
-    "<h3>You are very bad bby 😡</h3>";
+document.getElementById("result"+page).innerHTML=
+"<h3>You are very bad bby 😡</h3>";
 }
 }
 
+/* BACKGROUND CHANGE */
+function changeBackground(img){
+const bg=document.getElementById("bg");
+bg.style.opacity=0;
+setTimeout(()=>{
+bg.style.background="url('"+img+"') center/cover no-repeat";
+bg.style.opacity=1;
+},400);
+}
 
+/* RESET TO GRADIENT */
+function resetBackground(){
+const bg=document.getElementById("bg");
+bg.style.opacity=0;
+setTimeout(()=>{
+bg.style.background="linear-gradient(to right, #ff9a9e, #ff4d88)";
+bg.style.opacity=1;
+},400);
+}
+
+/* VALENTINE */
 function goToValentine(){
 showPage("valentinePage");
 changeBackground("valentine.jpg");
 }
 
+/* NO BUTTON MOVE */
+const noBtn=document.getElementById("noBtn");
+noBtn.addEventListener("mouseover",function(){
+noBtn.style.left=Math.random()*300+"px";
+noBtn.style.top=Math.random()*100+"px";
+});
 
-function changeBackground(img){
-
-    const bg = document.getElementById("bg");
-
-    // Preload image
-    const newImage = new Image();
-    newImage.src = img;
-
-    newImage.onload = function(){
-
-        bg.style.opacity = 0;
-
-        setTimeout(()=>{
-            bg.style.background = "url('" + img + "') center/cover no-repeat";
-            bg.style.opacity = 1;
-        },400);
-
-    }
-}
-
-
-
+/* YES EXPLOSION */
 function sayYes(){
-
-for(let i=0;i<40;i++){
+for(let i=0;i<30;i++){
 const heart=document.createElement("div");
 heart.classList.add("explosion-heart");
 heart.innerHTML="💖";
@@ -309,14 +312,14 @@ setTimeout(()=>heart.remove(),1000);
 
 setTimeout(()=>{
 document.getElementById("response").innerHTML=`
-<h2>So sweet of you Babe❤️ You said YES 😭❤️ I love you Kuttu💖 !</h2>
+<h2>So sweet of you Babe ❤️ You said YES 😭❤️ I love you Kuttu 💖!</h2>
 <video controls autoplay>
 <source src="video.mp4" type="video/mp4">
-</video>
-`;
+</video>`;
 },800);
 }
 
+/* FALLING HEARTS (Optimized) */
 function createHeart(){
 const heart=document.createElement("div");
 heart.classList.add("heart");
@@ -326,7 +329,7 @@ heart.style.animationDuration=(Math.random()*3+2)+"s";
 document.body.appendChild(heart);
 setTimeout(()=>heart.remove(),5000);
 }
-setInterval(createHeart,300);
+setInterval(createHeart,800);
 
 </script>
 </body>
