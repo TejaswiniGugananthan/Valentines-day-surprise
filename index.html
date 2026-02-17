@@ -21,18 +21,22 @@ body {
 #frontPage,
 #resultPage,
 #valentinePage {
-    color: #8b0000;   /* Deep romantic red */
+    color: #8b0000;  /* Deep romantic red */
 }
 
 /* All Quiz Pages same color */
-#quiz1{
+#quiz1,
+#quiz4
+{
+    color:white;
+}
+
+#quiz2,
+#quiz3
+{
     color:black
 }
-    
-#quiz2,
-#quiz3,
-#quiz4{
-    color: #e18bee;   /* Elegant dark purple */}
+ /* Elegant dark purple */
 #quiz5 {
     color: #8b0000;
 }
@@ -187,7 +191,7 @@ video {
 const correctAnswers = {
 1: ["8 december 2017","08 december 2017","8/12/2017","08/12/2017"],
 2: ["3 march 2018","03 march 2018","3/3/2018","03/03/2018"],
-3: ["21 may 2022","21/05/2022"],
+3: ["21 may 2022","21/05/2022","21/05/2022"],
 4: ["vision vidhyalaya school","match","sports meet"],
 5: "ring"
 };
@@ -226,7 +230,7 @@ if(isCorrect){
 
     // Show cute message
     document.getElementById("result"+page).innerHTML =
-    "<h3 style='color:#00ffcc;'>Good boyyy 😍❤️ You know us so well!</h3>";
+    "<h3 style='color:#00ffcc;'>Good boyyy 😍❤️ You know us very well!</h3>";
 
     // Move to next page after 1.2 sec
     setTimeout(()=>{
@@ -245,7 +249,7 @@ if(isCorrect){
 }else{
 
     document.getElementById("result"+page).innerHTML =
-    "<h3>You are very bad bby 😒❤️</h3>";
+    "<h3>You are very bad bby 😡</h3>";
 }
 }
 
@@ -283,7 +287,7 @@ setTimeout(()=>heart.remove(),1000);
 
 setTimeout(()=>{
 document.getElementById("response").innerHTML=`
-<h2>You said YES 😭❤️ I love you forever!</h2>
+<h2>So sweet of you Babe❤️ You said YES 😭❤️ I love you Kuttu💖 !</h2>
 <video controls autoplay>
 <source src="video.mp4" type="video/mp4">
 </video>
@@ -305,8 +309,3 @@ setInterval(createHeart,300);
 </script>
 </body>
 </html>
-
-
-
-
-
