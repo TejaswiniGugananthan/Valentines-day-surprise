@@ -10,16 +10,31 @@ body {
     text-align: center;
     font-family: 'Segoe UI', sans-serif;
     overflow-x: hidden;
-    color: rgb(73, 5, 5);
     background: linear-gradient(to right, #ff9a9e, #ff4d88);
     background-size: cover;
     transition: background 1s ease-in-out;
 }
 
-/* Overlay */
+/* ================= TEXT COLORS ================= */
 
+/* Front, Result & Valentine same color */
+#frontPage,
+#resultPage,
+#valentinePage {
+    color: #8b0000;   /* Deep romantic red */
+}
 
-/* Pages */
+/* All Quiz Pages same color */
+#quiz1,
+#quiz2,
+#quiz3,
+#quiz4,
+#quiz5 {
+    color: #4b004f;   /* Elegant dark purple */
+}
+
+/* =============================================== */
+
 .page {
     position: absolute;
     width: 100%;
@@ -52,21 +67,21 @@ button {
 }
 
 .yesBtn {
-    background-color: #17d1ac;
-    color: rgb(9, 0, 3);
+    background-color: #ff0066;
+    color: white;
 }
 
 .noBtn {
-    background-color: rgb(255, 1, 1);
-    color: #be0d0d;
+    background-color: #ff4d4d;
+    color: white;
     position: absolute;
 }
 
-/* Hearts */
+/* Falling Hearts */
 .heart {
     position: fixed;
     top: -10px;
-    color: #da1c26;
+    color: #ff1744;
     font-size: 20px;
     animation: fall linear infinite;
 }
@@ -81,7 +96,7 @@ video {
     border-radius: 20px;
 }
 
-/* Explosion Hearts */
+/* Explosion */
 .explosion-heart {
     position: fixed;
     font-size: 24px;
@@ -90,16 +105,9 @@ video {
 }
 
 @keyframes explode {
-    0% {
-        transform: scale(1) translate(0, 0);
-        opacity: 1;
-    }
-    100% {
-        transform: scale(2.5) translate(var(--x), var(--y));
-        opacity: 0;
-    }
+    0% { transform: scale(1) translate(0, 0); opacity: 1; }
+    100% { transform: scale(2.5) translate(var(--x), var(--y)); opacity: 0; }
 }
-
 </style>
 </head>
 
@@ -108,14 +116,14 @@ video {
 <!-- FRONT PAGE -->
 <div id="frontPage" class="page active">
 <h1>Here is the Surprise for you MY LOVE 😌❤️</h1>
-<h3>Its Time to Answer❤️</h3>
+<h3>It's Time to Answer ❤️</h3>
 <button onclick="startQuiz()">Start 💕</button>
 </div>
 
 <!-- QUIZ PAGES -->
 <div id="quiz1" class="page">
 <h2>Question 1 ❤️</h2>
-<p>When did you propose to me?💍❤️</p>
+<p>When did you propose to me? 💍❤️</p>
 <input type="text" id="q1"><br>
 <button onclick="checkAnswer(1)">Next</button>
 <div id="result1"></div>
@@ -123,7 +131,7 @@ video {
 
 <div id="quiz2" class="page">
 <h2>Question 2 💕</h2>
-<p>When did we kiss for the first time?💋💎<p>
+<p>When did we kiss for the first time? 💋💎</p>
 <input type="text" id="q2"><br>
 <button onclick="checkAnswer(2)">Next</button>
 <div id="result2"></div>
@@ -131,7 +139,7 @@ video {
 
 <div id="quiz3" class="page">
 <h2>Question 3 🥹</h2>
-<p>When was our first movie date?🎥🎬🍿</p>
+<p>When was our first movie date? 🎥🍿</p>
 <input type="text" id="q3"><br>
 <button onclick="checkAnswer(3)">Next</button>
 <div id="result3"></div>
@@ -139,7 +147,7 @@ video {
 
 <div id="quiz4" class="page">
 <h2>Question 4 😌</h2>
-<p>Where did we first meet?👩🏻‍🤝‍👨🏼💞</p>
+<p>Where did we first meet? 👩🏻‍🤝‍👨🏼💞</p>
 <input type="text" id="q4"><br>
 <button onclick="checkAnswer(4)">Next</button>
 <div id="result4"></div>
@@ -147,7 +155,7 @@ video {
 
 <div id="quiz5" class="page">
 <h2>Question 5 💞</h2>
-<p>What was the first gift you gave me?🎁🫶🏻</p>
+<p>What was the first gift you gave me? 🎁🫶🏻</p>
 <input type="text" id="q5"><br>
 <button onclick="checkAnswer(5)">Finish</button>
 <div id="result5"></div>
@@ -172,32 +180,25 @@ video {
 
 <script>
 
-/* Correct Answers - EDIT */
+/* Answers */
 const correctAnswers = {
-1: "08/12/2017",
-2: ["3 march 2018", "03 march 2018", "3/3/2018","03/03/2018"],
-3: ["21 may 2018", "21/05/2018"],
+1: ["8 december 2017","08 december 2017","8/12/2017","08/12/2017"],
+2: ["3 march 2018","03 march 2018","3/3/2018","03/03/2018"],
+3: ["21 may 2022","21/05/2022"],
 4: ["vision vidhyalaya school","match","sports meet"],
 5: "ring"
 };
 
-/* Show Page With Fade */
 function showPage(pageId){
-document.querySelectorAll(".page").forEach(p=>{
-p.classList.remove("active");
-});
-setTimeout(()=>{
-document.getElementById(pageId).classList.add("active");
-},200);
+document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+setTimeout(()=>document.getElementById(pageId).classList.add("active"),200);
 }
 
-/* Start Quiz */
 function startQuiz(){
 showPage("quiz1");
 changeBackground("q1.jpg");
 }
 
-/* Check Answer */
 function checkAnswer(page){
 
 let userAnswer = document.getElementById("q"+page).value
@@ -246,65 +247,47 @@ if(isCorrect){
 }
 
 
-/* Go To Valentine */
 function goToValentine(){
 showPage("valentinePage");
 changeBackground("valentine.jpg");
 }
 
-/* Change Background */
 function changeBackground(img){
 document.body.style.background=
 "url('"+img+"') no-repeat center center fixed";
 document.body.style.backgroundSize="cover";
 }
 
-/* Moving NO */
 const noBtn=document.getElementById("noBtn");
 noBtn.addEventListener("mouseover",function(){
-const x=Math.random()*300;
-const y=Math.random()*100;
-noBtn.style.left=x+"px";
-noBtn.style.top=y+"px";
+noBtn.style.left=Math.random()*300+"px";
+noBtn.style.top=Math.random()*100+"px";
 });
 
-/* YES */
 function sayYes(){
 
-    // Create explosion
-    for(let i=0;i<40;i++){
-        const heart = document.createElement("div");
-        heart.classList.add("explosion-heart");
-        heart.innerHTML = "💖";
-
-        // Start from center of screen
-        heart.style.left = "50%";
-        heart.style.top = "50%";
-
-        // Random explosion direction
-        heart.style.setProperty('--x', (Math.random()*600 - 300) + "px");
-        heart.style.setProperty('--y', (Math.random()*400 - 200) + "px");
-
-        document.body.appendChild(heart);
-
-        setTimeout(()=>{
-            heart.remove();
-        },1000);
-    }
-
-    // Show message + video after explosion
-    setTimeout(()=>{
-        document.getElementById("response").innerHTML=`
-        <h2>You said YES 😭❤️ I love you forever!</h2>
-        <video controls autoplay>
-        <source src="video.mp4" type="video/mp4">
-        </video>
-        `;
-    },800);
+for(let i=0;i<40;i++){
+const heart=document.createElement("div");
+heart.classList.add("explosion-heart");
+heart.innerHTML="💖";
+heart.style.left="50%";
+heart.style.top="50%";
+heart.style.setProperty('--x',(Math.random()*600-300)+"px");
+heart.style.setProperty('--y',(Math.random()*400-200)+"px");
+document.body.appendChild(heart);
+setTimeout(()=>heart.remove(),1000);
 }
 
+setTimeout(()=>{
+document.getElementById("response").innerHTML=`
+<h2>You said YES 😭❤️ I love you forever!</h2>
+<video controls autoplay>
+<source src="video.mp4" type="video/mp4">
+</video>
+`;
+},800);
+}
 
-/* Hearts */
 function createHeart(){
 const heart=document.createElement("div");
 heart.classList.add("heart");
@@ -312,15 +295,10 @@ heart.innerHTML="❤️";
 heart.style.left=Math.random()*100+"vw";
 heart.style.animationDuration=(Math.random()*3+2)+"s";
 document.body.appendChild(heart);
-setTimeout(()=>{heart.remove();},5000);
+setTimeout(()=>heart.remove(),5000);
 }
 setInterval(createHeart,300);
 
-
-
 </script>
-
 </body>
 </html>
-
-
